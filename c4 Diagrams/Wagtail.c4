@@ -1,0 +1,96 @@
+specification {
+
+}
+
+model {
+ 
+ contentEditor = actor 'Content Editor' {
+
+    description 'Specialist user responsible for creation of content'
+
+    style {
+      shape person
+    }
+  }
+
+  extend NHSWebsite  {
+    component nhswebsite-ui 'Frontend for all Content redering' {
+      description 'Wagtail is a Python based CMS '
+      style {
+        shape browser
+      }
+      link https://wagtail.org/
+    }
+     restapi nhswebsite-content-api 'API for all NHS Content' {
+      description 'Wagtail is a Python based CMS '
+    
+      link https://wagtail.org/
+    }
+ component nhswebsite-admin-ui 'Frontend for all Content editing' {
+      description 'Wagtail is a Python based CMS '
+      style {
+        shape browser
+      }
+      link https://wagtail.org/
+    }
+  }
+
+  // Customer uses the UI
+  citizen -> nhswebsite-ui 'User viewing health related content'
+  contentEditor -> nhswebsite-admin-ui 'Editor for Content Management'
+  citizen -> nhswebsite-content-api 'Any user wishing to consume our content via an API'
+ 
+
+
+  //Implementation
+nhswebsite-ui -> NHSWebsite.azureCMSContentDB 'Serves all NHS Content'
+nhswebsite-admin-ui -> NHSWebsite.azureCMSContentDB 'Serves all NHS Content'
+nhswebsite-content-api -> NHSWebsite.azureCMSContentDB 'Serves all API content'
+
+}
+
+// Deployment model
+deployment {
+
+
+
+  environment prod 'Production' {
+    uk = zone 'UK South' {
+      zone wagtail-cms {
+
+        instanceOf NHSWebsite.nhswebsite-ui
+        instanceOf NHSWebsite.nhswebsite-admin-ui
+        instanceOf nhswebsite-content-api
+      
+      }
+    }
+  }
+}
+
+
+views {
+
+  view of nhswebsite-ui {
+    title 'Implementation of NHS Content for citizens'
+    description 'Technical overview of CMS'
+    include *,
+    nhswebsite-ui
+
+    style citizen {
+      color muted
+    }
+    autoLayout LeftRight
+  }
+    view of nhswebsite-admin-ui {
+    title 'Implementation of NHS Content for editors'
+    description 'Technical overview of CMS'
+    include *,
+    nhswebsite-admin-ui
+
+    style citizen {
+      color muted
+    }
+    autoLayout LeftRight
+  }
+
+}
