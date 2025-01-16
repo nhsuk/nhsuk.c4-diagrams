@@ -1,0 +1,38 @@
+specification {
+  
+}
+model {
+
+      sender = actor 'Letter Sender' {
+    description 'The regular customer of the system'
+  }
+
+ DigitalPost = system 'Digital Post' {
+  description 'The primary way to share letters in NHSE'
+
+   component notify 'NHS Notify' {
+      description 'Interface to call NHS Notify'
+     
+    }
+    component PDS 'PDS' {
+      description 'Determine fallback'
+     
+    }
+    sender -> notify 'API call to NHS Notify'
+    notify -> PDS 'Determine fallback for sending'
+
+ }
+
+}
+views {
+  view DigitalPost of DigitalPost {
+    include *
+
+    style * {
+      opacity 25%
+    }
+    style customer {
+      color muted
+    }
+  }
+}
