@@ -1,5 +1,5 @@
 # Sample workflow for building and deploying a website to GitHub Pages
-name: Deploy Pages
+name: Deploy C4 to Azure Static Web
 
 on:
   # Runs on pushes targeting the default branch and c4 files
@@ -60,4 +60,5 @@ jobs:
              app_location: "/" # App source code path
              api_location: "" # Api source code path - optional
              output_location: "./dist" # Built app content directory - optional
+             skip_app_build: true
           ###### End of Repository/Build Configurations ######
