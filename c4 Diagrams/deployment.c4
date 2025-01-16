@@ -1,0 +1,50 @@
+// Define deployment node kinds
+specification {
+  deploymentNode node
+  deploymentNode zone
+  deploymentNode environment {
+    style {
+      color gray
+    }
+  }
+}
+
+// Deployment model
+deployment {
+
+  node citizenNode {
+    instanceOf citizen
+  }
+
+      node CMSEditorNode {
+    instanceOf contentEditor
+  }
+node profileEditorNode{
+  instanceOf profile-editor
+}
+  environment prod 'Production' {
+  uk = zone 'UK South' {
+      zone UKSouth {
+      instanceOf NHSWebsite.azureAISearch
+      instanceOf NHSWebsite.azureCMSContentDB
+      instanceOf NHSWebsite.azureProfilesDB
+      }
+    }
+  }
+}
+
+views {
+  deployment view prod-deployment {
+    title 'Production Deployment'
+    description 'Deployment of NHS.UK'
+
+    include
+      *,
+      prod.**
+
+    style uk._ {
+      color blue
+    }
+   
+	}
+}

@@ -1,0 +1,60 @@
+
+
+model {
+  
+  extend NHSWebsite  {
+ 
+    component profile-viewer-ui 'Frontend for Profiles' {
+      description '.Net Core application, hosted as App Service Plan'
+      style {
+        shape browser
+      }
+    }
+   
+
+
+  
+  }
+
+  // Customer uses the UI
+  citizen -> profile-viewer-ui 'User viewing organisation profile'
+  citizen -> NHSWebsite 'searches for health organisation profiles'
+
+  //Implementation
+
+
+   NHSWebsite.profile-viewer-ui -> NHSWebsite.azureAISearch 'Search for Profiles'
+ 
+
+}
+
+deployment {
+
+  environment prod 'Production' {
+    uk = zone 'UK South' {
+      zone profile-viewer {
+        instanceOf NHSWebsite.profile-viewer-ui
+   
+       
+      }
+    }
+  }
+}
+
+views {
+  view of profile-viewer-ui {
+    title 'Implementation of Profile Viewer'
+    description 'Technical overview'
+  
+    include *
+ 
+
+
+    style citizen {
+      color muted
+    }
+    autoLayout LeftRight
+  }
+
+
+}
