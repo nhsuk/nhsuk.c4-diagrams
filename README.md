@@ -8,4 +8,4 @@ LikeC4 is a DSL for describing software architecture.
 
 ## Getting Started
 
-There is a plugin for VSCode avaiable [VSCOde Marketplace](https://marketplace.visualstudio.com/items?itemName=likec4.likec4-vscode)
+There is a plugin for VSCode avaiable [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=likec4.likec4-vscode)
