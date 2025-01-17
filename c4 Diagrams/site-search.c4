@@ -12,6 +12,8 @@ model {
   }
   extend NHSWebsite  {
  
+  site-search = system 'NHS Website site search' {
+  description 'The primary source of health information in England'
     component site-search-ui 'Frontend for Site Search' {
       description '.Net Core application, hosted as App Service Plan'
       style {
@@ -114,7 +116,7 @@ deployment {
 }
 
 views {
-  view of site-search-ui {
+  view  of site-search-ui {
     title 'Implementation of Site Search'
     description 'Technical overview'
   
@@ -127,6 +129,18 @@ views {
     }
     autoLayout LeftRight
   }
+  view site-search of site-search {
+    title 'Implementation of Site Search'
+    description 'Technical overview'
+  
+    include *
+ 
 
+
+    style citizen {
+      color muted
+    }
+    autoLayout LeftRight
+  }
 
 }
