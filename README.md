@@ -8,4 +8,9 @@ LikeC4 is a DSL for describing software architecture.
 
 ## Getting Started
 
-There is a plugin for VSCode avaiable [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=likec4.likec4-vscode)
+There is a plugin for VSCode available [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=likec4.likec4-vscode)
+
+
+## Deployed Version
+
+A Github action deploys the models to an Azure Static Webapp. [NHS.UK C4 Models](https://blue-meadow-088374703.4.azurestaticapps.net/)

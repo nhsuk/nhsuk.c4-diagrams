@@ -33,6 +33,13 @@ model {
       }
       link https://wagtail.org/
     }
+     azureCMSContentDB = component 'Wagtail Content Database' {
+      description 'Database user to run the CMS'
+      style {
+        shape storage
+        icon azure:azure-database-postgre-sql-server
+      }
+    }
   }
 
   // Customer uses the UI

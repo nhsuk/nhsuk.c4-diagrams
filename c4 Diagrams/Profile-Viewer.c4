@@ -3,7 +3,9 @@
 model {
   
   extend NHSWebsite  {
- 
+    ProfileViewer = system 'Profile Viewer' {
+  description 'The ability for citizens to view profiles of NHS Organisations'
+
     component profile-viewer-ui 'Frontend for Profiles' {
       description '.Net Core application, hosted as App Service Plan'
       style {
@@ -24,7 +26,7 @@ model {
 
 
    NHSWebsite.profile-viewer-ui -> NHSWebsite.azureAISearch 'Search for Profiles'
- 
+  }
 
 }
 
@@ -42,7 +44,7 @@ deployment {
 }
 
 views {
-  view of profile-viewer-ui {
+  view profiles of profile-viewer-ui {
     title 'Implementation of Profile Viewer'
     description 'Technical overview'
   

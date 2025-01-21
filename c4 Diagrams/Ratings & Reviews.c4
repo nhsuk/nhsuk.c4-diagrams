@@ -1,0 +1,107 @@
+
+
+model {
+   CommentSupplier = actor 'Comment Suppplier' {
+
+    description 'A third party supplier of comments'
+
+    style {
+      shape person
+    }
+  }
+     ModerationTeam = actor 'Moderation Team' {
+
+    description 'NHSE moderators of comments'
+
+    style {
+      shape person
+    }
+  }
+
+  extend NHSWebsite  {
+ 
+     RatingsReviews = system 'Ratings & Reviews' {
+  description 'The ability for citizens to view and leave comments against NHS Organisations'
+    service reviews-ui 'Frontend for Ratings & Reviews' {
+      description '.Net Core application, hosted as App Service Plan'
+      style {
+        shape browser
+      }
+    }
+     system Dynamics 'MS Dynamics for comment Moderation' {
+      description 'Use of Dynamics to store all messages'
+        style {
+        icon azure:
+      }
+    }
+     component CommentsAPI 'API for Comments' {
+      description 'Inbound and Outbound API'
+        style {
+        icon azure:api-management-services
+      }
+    }
+     component CommentsDB 'Comments Database' {
+      description 'Store comments and responses'
+        style {
+        icon azure:sql-database
+      }
+    }
+     component autoMod 'API for automatic comment moderation' {
+      description 'ML solution to perform moderation'
+        style {
+        icon azure:machine-learning
+      }
+    }
+  }
+
+  // Customer uses the UI
+  CommentSupplier -> CommentsAPI 'Supply / retrieve comments'
+  citizen -> reviews-ui 'User viewing/submitting organisation ratings and reviews'
+  reviews-ui -> CommentsAPI 'Submit Comments'
+  ModerationTeam -> Dynamics 'Perform human moderation where required'
+  CommentsAPI -> autoMod 'Perform Moderation'
+  CommentsAPI -> CommentsDB 'Store / Retrieve comments'
+  CommentsAPI -> Dynamics 'Submit comments to human moderation system'
+
+  reviews-ui -> NHSWebsite.azureAISearch 'Retrieve Organisation profiles'
+
+  //Implementation
+
+
+ //  NHSWebsite.profile-viewer-ui -> NHSWebsite.azureAISearch 'Search for Profiles'
+ 
+  }
+}
+
+deployment {
+
+  environment prod 'Production' {
+    uk = zone 'UK South' {
+      zone reviews {
+        instanceOf NHSWebsite.reviews-ui
+   
+       
+      }
+    }
+  }
+}
+
+views {
+
+
+  view RatingsReviews of RatingsReviews {
+    title 'Ratings and Reviews - System Context'
+    description 'System Context'
+  
+    include *
+ 
+
+
+    style citizen {
+      color muted
+    }
+    autoLayout LeftRight
+  }
+
+
+}

@@ -12,8 +12,8 @@ model {
   }
   extend NHSWebsite  {
  
-  site-search = system 'NHS Website site search' {
-  description 'The primary source of health information in England'
+  site-search = system 'Site search' {
+  description 'Ability to search the NHS Website'
     component site-search-ui 'Frontend for Site Search' {
       description '.Net Core application, hosted as App Service Plan'
       style {
@@ -72,7 +72,7 @@ model {
       }
     }
 
-    restapi function 'Messaging Functions - Site Search' {
+    component function 'Messaging Functions - Site Search' {
       description 'Processes messages from service bus'
       style {
         icon azure:function-apps
