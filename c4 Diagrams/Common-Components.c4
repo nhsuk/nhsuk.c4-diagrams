@@ -24,20 +24,8 @@ model {
      }
     }
       
-       azureCMSContentDB = component 'Wagtail Content Database' {
-      description 'Database user to run the CMS'
-      style {
-        shape storage
-        icon azure:azure-database-postgre-sql-server
-      }
-    }
-        azureProfilesDB = component 'Profiles Database' {
-      description 'Profiles Database'
-      style {
-        shape storage
-        icon azure:azure-sql
-      }
-    }
+      
+    
 
 
 

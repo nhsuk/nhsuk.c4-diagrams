@@ -11,6 +11,8 @@ model {
 
   }
   extend NHSWebsite  {
+   ProfileEditing = system 'Profile Editing' {
+  description 'The ability for NHS Organisations to edit profiles and respond to comments'
 
 
     component profile-editor-ui 'Frontend for Profile Editing' {
@@ -35,7 +37,7 @@ model {
         shape queue
       }
     }
-    restapi ProfileEditor-API 'API to capture edits for profiles' {
+    component ProfileEditor-API 'API to capture edits for profiles' {
       description 'All edits from Profile Manager'
       style {
         icon azure:function-apps
@@ -47,12 +49,16 @@ model {
         icon azure:azure-ad-b2c
       }
     }
+        azureProfilesDB = component 'Profiles Database' {
+      description 'Profiles Database'
+      style {
+        shape storage
+        icon azure:azure-sql
+      }
+    }
 
 
-  
-  }
-
-  // Customer uses the UI
+   }
  profile-editor -> profile-editor-ui 'Owns an organisation profile'
 
 
@@ -65,6 +71,11 @@ NHSWebsite.ProfileEditor-API -> azureServiceBusUEC 'Post message to UEC'
   NHSWebsite.profile-editor-ui -> NHSWebsite.ProfileEditor-API 'Accepts updates to a profile'
  NHSWebsite.ProfileEditor-API -> NHSWebsite.azureProfilesDB 'Direct updates to the Database'
  NHSWebsite.ProfileEditor-API -> NHSWebsite.azureAISearch 'Direct updates to the Search index'
+
+  
+  }
+
+  // Customer uses the UI
 
 }
 
@@ -86,7 +97,7 @@ deployment {
 }
 
 views {
-  view of profile-editor-ui {
+  view edits of profile-editor-ui {
     title 'Implementation of Profile Editor'
     description 'Technical overview'
   
