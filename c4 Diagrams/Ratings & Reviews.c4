@@ -79,6 +79,9 @@ deployment {
     uk = zone 'UK South' {
       zone reviews {
         instanceOf NHSWebsite.reviews-ui
+        instanceOf NHSWebsite.CommentsAPI
+        instanceOf NHSWebsite.CommentsDB
+        instanceOf NHSWebsite.Dynamics
    
        
       }
