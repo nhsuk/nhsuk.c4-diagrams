@@ -31,7 +31,7 @@ model {
      system Dynamics 'MS Dynamics for comment Moderation' {
       description 'Use of Dynamics to store all messages'
         style {
-        icon azure:
+        
       }
     }
      component CommentsAPI 'API for Comments' {
@@ -93,7 +93,7 @@ views {
 
 
   view RatingsReviews of RatingsReviews {
-    title 'Ratings and Reviews - System Context'
+    title 'System Context - Ratings & Reviews'
     description 'System Context'
   
     include *

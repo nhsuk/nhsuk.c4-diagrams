@@ -97,9 +97,9 @@ deployment {
 }
 
 views {
-  view edits of profile-editor-ui {
-    title 'Implementation of Profile Editor'
-    description 'Technical overview'
+  view edits of ProfileEditing {
+    title 'System Context - Profile Editor'
+    description 'System Context'
   
     include *,
  //   NHSWebsite.profile-editor-ui

@@ -44,9 +44,9 @@ deployment {
 }
 
 views {
-  view profiles of profile-viewer-ui {
-    title 'Implementation of Profile Viewer'
-    description 'Technical overview'
+  view profiles of ProfileViewer {
+    title 'System Context - Profile Viewer'
+    description 'System Context'
   
     include *
  
