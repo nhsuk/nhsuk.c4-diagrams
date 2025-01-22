@@ -1,10 +1,9 @@
 specification {
-
 }
 
 model {
- 
- contentEditor = actor 'Content Editor' {
+
+  contentEditor = actor 'Content Editor' {
 
     description 'Specialist user responsible for creation of content'
 
@@ -13,50 +12,46 @@ model {
     }
   }
 
-  extend NHSWebsite  {
-    
-     NHSUKCMS = system 'NHS.Uk CMS' {
-  description 'The ability for citizens to view and leave comments against NHS Organisations'
-    component nhswebsite-ui 'Frontend for all Content redering' {
-      description 'Wagtail is a Python based CMS '
-      style {
-        shape browser
+  extend NHSWebsite {
+
+    NHSUKCMS = system 'NHS.Uk CMS' {
+      description 'The ability for citizens to view and leave comments against NHS Organisations'
+      component nhswebsite-ui 'Frontend for all Content redering' {
+        description 'Wagtail is a Python based CMS '
+        style {
+          shape browser
+        }
+        link https://wagtail.org/
       }
-      link https://wagtail.org/
-    }
-     component nhswebsite-content-api 'API for all NHS Content' {
-      description 'Wagtail is a Python based CMS '
-    
-      link https://wagtail.org/
-    }
- component nhswebsite-admin-ui 'Frontend for all Content editing' {
-      description 'Wagtail is a Python based CMS '
-      style {
-        shape browser
+      component nhswebsite-content-api 'API for all NHS Content' {
+        description 'Wagtail is a Python based CMS '
+
+        link https://wagtail.org/
       }
-      link https://wagtail.org/
-    }
-     azureCMSContentDB = component 'Wagtail Content Database' {
-      description 'Database user to run the CMS'
-      style {
-        shape storage
-        icon azure:azure-database-postgre-sql-server
+      component nhswebsite-admin-ui 'Frontend for all Content editing' {
+        description 'Wagtail is a Python based CMS '
+        style {
+          shape browser
+        }
+        link https://wagtail.org/
+      }
+      azureCMSContentDB = component 'Wagtail Content Database' {
+        description 'Database user to run the CMS'
+        style {
+          shape storage
+          icon azure:azure-database-postgre-sql-server
+        }
       }
     }
-  }
   }
 
   // Customer uses the UI
   citizen -> nhswebsite-ui 'User viewing health related content'
   contentEditor -> nhswebsite-admin-ui 'Editor for Content Management'
   citizen -> nhswebsite-content-api 'Any user wishing to consume our content via an API'
- 
-
-
-  //Implementation
-nhswebsite-ui -> NHSWebsite.azureCMSContentDB 'Serves all NHS Content'
-nhswebsite-admin-ui -> NHSWebsite.azureCMSContentDB 'Serves all NHS Content'
-nhswebsite-content-api -> NHSWebsite.azureCMSContentDB 'Serves all API content'
+  nhswebsite-ui -> NHSWebsite.azureCMSContentDB 'Serves all NHS Content'
+  nhswebsite-admin-ui -> NHSWebsite.azureCMSContentDB 'Serves all NHS Content'
+  nhswebsite-content-api -> NHSWebsite.azureCMSContentDB 'Serves all API content'
 
 }
 
@@ -82,12 +77,11 @@ deployment {
 views {
 
 
-    view NHSUKCMS of NHSUKCMS {
+  view NHSUKCMS of NHSUKCMS {
     title 'System Context - NHS CMS'
     description 'System Context'
     include *,
-  
-
+    
     style citizen {
       color muted
     }

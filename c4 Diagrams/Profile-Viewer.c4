@@ -1,37 +1,25 @@
 
 
 model {
-  
-  extend NHSWebsite  {
-    ProfileViewer = system 'Profile Viewer' {
-  description 'The ability for citizens to view profiles of NHS Organisations'
 
-    component profile-viewer-ui 'Frontend for Profiles' {
-      description '.Net Core application, hosted as App Service Plan'
-      style {
-        shape browser
+  extend NHSWebsite {
+    ProfileViewer = system 'Profile Viewer' {
+      description 'The ability for citizens to view profiles of NHS Organisations'
+
+      component profile-viewer-ui 'Frontend for Profiles' {
+        description '.Net Core application, hosted as App Service Plan'
+        style {
+          shape browser
+        }
       }
     }
-   
 
-
-  
+    citizen -> profile-viewer-ui 'User viewing organisation profile'
+    NHSWebsite.profile-viewer-ui -> NHSWebsite.azureAISearch 'Search for Profiles'
   }
-
-  // Customer uses the UI
-  citizen -> profile-viewer-ui 'User viewing organisation profile'
- // citizen -> NHSWebsite 'searches for health organisation profiles'
-
-  //Implementation
-
-
-   NHSWebsite.profile-viewer-ui -> NHSWebsite.azureAISearch 'Search for Profiles'
-  }
-
 }
 
 deployment {
-
   environment prod 'Production' {
     uk = zone 'UK South' {
       zone profile-viewer {
@@ -47,16 +35,11 @@ views {
   view profiles of ProfileViewer {
     title 'System Context - Profile Viewer'
     description 'System Context'
-  
+
     include *
- 
-
-
     style citizen {
       color muted
     }
     autoLayout LeftRight
   }
-
-
 }
