@@ -10,6 +10,14 @@ model {
     }
 
   }
+
+  UEC = system 'Urgent and Emergency Care DOS' {
+    description 'Urgent & Emergency Care Directory'
+    style {
+      icon:aws:api-gateway
+    }
+  }
+
   extend NHSWebsite  {
    ProfileEditing = system 'Profile Editing' {
   description 'The ability for NHS Organisations to edit profiles and respond to comments'
@@ -66,11 +74,13 @@ model {
 NHSWebsite.profile-editor-ui -> editor-authentication 'Authenticates a user'
 NHSWebsite.ProfileEditor-API -> editor-authentication 'Authenticates a user'
 NHSWebsite.ProfileEditor-API -> azureServiceBusUEC 'Post message to UEC'
+azureServiceBusUEC -> UEC 'Send message to UEC'
   NHSWebsite.azureProfilesDB -> NHSWebsite.azureAISearch 'Profiles information loaded into Azure Search Index'
   azureDataFactoryProfiles -> NHSWebsite.azureProfilesDB 'Extracts Profiles from NHSUKChoice and PIMS'
   NHSWebsite.profile-editor-ui -> NHSWebsite.ProfileEditor-API 'Accepts updates to a profile'
  NHSWebsite.ProfileEditor-API -> NHSWebsite.azureProfilesDB 'Direct updates to the Database'
  NHSWebsite.ProfileEditor-API -> NHSWebsite.azureAISearch 'Direct updates to the Search index'
+
 
   
   }
