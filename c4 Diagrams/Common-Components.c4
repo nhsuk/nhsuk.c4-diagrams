@@ -10,57 +10,45 @@ specification {
 
 }
 model {
- 
- NHSWebsite = system 'NHS Website' {
-  description 'The primary source of health information in England'
 
- service azureAISearch 'Azure Search' {
+  NHSWebsite = system 'NHS Website' {
+    description 'The primary source of health information in England'
+
+    service azureAISearch 'Azure Search' {
       description 'Azure Search Index of NHS Services and Postcodes'
-     style {
-    
-     
-     icon azure:cognitive-search
-      shape storage
-     }
+      style {
+        icon azure:cognitive-search
+        shape storage
+      }
     }
-      
-      
-    
+  }
 
-
-
- }
-   
-
-    citizen = actor 'Citizen' {
+  citizen = actor 'Citizen' {
     description 'A visitor to the NHS Website'
     style {
       shape person
     }
-
   }
 }
-views { 
+
+views {
   view index {
     title 'Index View for NHS Website'
     description 'A model showing the NHS Website'
-
     include *
-    
     autoLayout LeftRight
     style azureAISearch {
       shape storage
     }
   }
-    view NHSWebsite of NHSWebsite {
+
+  view NHSWebsite of NHSWebsite {
     title 'Implementation of NHS Website'
     description 'Technical overview of all components'
     include *
-
     style citizen {
       color muted
     }
     autoLayout LeftRight
   }
-
 }

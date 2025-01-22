@@ -4,8 +4,8 @@ specification {
   deploymentNode zone
   deploymentNode environment {
     style {
-      color gray
-    }
+    color gray
+  }
   }
 }
 
@@ -15,11 +15,12 @@ deployment {
   node citizenNode {
     instanceOf citizen
   }
-
-      node CMSEditorNode {
+  
+  node CMSEditorNode {
     instanceOf contentEditor
   }
-node profileEditorNode{
+  
+  node profileEditorNode{
   instanceOf profile-editor
 }
   environment prod 'Production' {

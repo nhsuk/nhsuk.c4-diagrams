@@ -1,64 +1,55 @@
-specification {
-
-}
+specification {}
 
 model {
- 
 
+  extend NHSWebsite {
+    FindAService = system 'Find a Service' 
+    {
+      description 'The ability for citizens to find NHS Organisations'
 
-  extend NHSWebsite  {
-     FindAService = system 'Find a Service' {
-  description 'The ability for citizens to find NHS Organisations'
-
-    component find-a-service-ui 'Frontend for Find a Service' {
-      description '.Net Core application, hosted as App Service Plan'
-      style {
-        shape browser
+      component find-a-service-ui 'Frontend for Find a Service' 
+      {
+        description '.Net Core application, hosted as App Service Plan'
+        style 
+        {
+          shape browser
+        }
       }
     }
-
+    citizen -> find-a-service-ui 'User searching for NHS Services'
+    find-a-service-ui -> NHSWebsite.azureAISearch 'Searches for NHS Services'
   }
-
-  // Customer uses the UI
-  citizen -> find-a-service-ui 'User searching for NHS Services'
-  //citizen -> NHSWebsite 'searches for health locations information'
-
-
-  //Implementation
-find-a-service-ui -> NHSWebsite.azureAISearch 'Searches for NHS Services'
-
-
-  }
-  }
+}
 
 // Deployment model
-deployment {
+deployment 
+{
 
   environment prod 'Production' {
     uk = zone 'UK South' {
-      zone find-a-service {
-
+      zone find-a-service 
+      {
         instanceOf NHSWebsite.find-a-service-ui
-      
       }
     }
   }
 }
 
 
-views {
+views 
+{
 
   view FindAService of FindAService {
     title 'System Context - Find a Service'
     description 'System Context'
-    include *,
-    find-a-service-ui,
-    find-a-service-ui.*
+    include
+      *,
+      find-a-service-ui,
+      find-a-service-ui.*
 
     style citizen {
       color muted
     }
     autoLayout LeftRight
   }
-
 }

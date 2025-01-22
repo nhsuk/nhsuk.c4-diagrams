@@ -1,7 +1,5 @@
-
-
 model {
-  
+
   analyticsUser = actor 'Analytics/Content User' {
 
     description 'Specialist user of search solution'
@@ -10,92 +8,87 @@ model {
       shape person
     }
   }
-  extend NHSWebsite  {
- 
-  site-search = system 'Site search' {
-  description 'Ability to search the NHS Website'
-    component site-search-ui 'Frontend for Site Search' {
-      description '.Net Core application, hosted as App Service Plan'
-      style {
-        shape browser
+  extend NHSWebsite {
+
+    site-search = system 'Site search' {
+      description 'Ability to search the NHS Website'
+      component site-search-ui 'Frontend for Site Search' {
+        description '.Net Core application, hosted as App Service Plan'
+        style {
+          shape browser
+        }
       }
-    }
-    //Components that make up the NHS Website
-    service azureSearch 'Azure AI Search - Site Search' {
-      description '
-       Azure Site Search Index
-      '
-      icon azure:cognitive-search
-    }
-
-    service azureServiceBus 'Azure Service Bus - Site Search' {
-      description 'Azure Service Bus for all incoming search messages'
-      style {
-        icon azure:azure-service-bus
-        shape queue
-      }
-    }
-
-    service azureDataFactory 'Data Factory - Site Search' {
-
-      style {
-        icon azure:data-factories
+      //Components that make up the NHS Website
+      service azureSearch 'Azure AI Search - Site Search' {
+        description 'Azure Site Search Index'
+        icon azure:cognitive-search
       }
 
-    }
-
-    azureContentDB = component 'Content Database - Site Search' {
-      description 'Copy of content ready to index'
-      style {
-        shape storage
-        icon azure:azure-sql
+      service azureServiceBus 'Azure Service Bus - Site Search' {
+        description 'Azure Service Bus for all incoming search messages'
+        style {
+          icon azure:azure-service-bus
+          shape queue
+        }
       }
-    }
 
-   
+      service azureDataFactory 'Data Factory - Site Search' {
 
-    azureAnalyticsDB = component 'Analytics Database - Site Search' {
-      description 'Store of search results and model results'
-
-      style {
-        shape storage
-        icon azure:azure-sql
+        style {
+          icon azure:data-factories
+        }
       }
-    }
 
-    component api 'Search APIs' {
-      description '
+      azureContentDB = component 'Content Database - Site Search' {
+        description 'Copy of content ready to index'
+        style {
+          shape storage
+          icon azure:azure-sql
+        }
+      }
+
+      azureAnalyticsDB = component 'Analytics Database - Site Search' {
+        description 'Store of search results and model results'
+
+        style {
+          shape storage
+          icon azure:azure-sql
+        }
+      }
+
+      component api 'Search APIs' {
+        description '
         Implements business logic and exposes as REST API
         Implements type ahead for search box'
-      style {
-        icon azure:function-apps
+        style {
+          icon azure:function-apps
+        }
+      }
+
+      component function 'Messaging Functions - Site Search' {
+        description 'Processes messages from service bus'
+        style {
+          icon azure:function-apps
+        }
       }
     }
 
-    component function 'Messaging Functions - Site Search' {
-      description 'Processes messages from service bus'
-      style {
-        icon azure:function-apps
-      }
-    }
+    // Customer uses the UI
+    citizen -> site-search-ui 'User searching for information on the site'
+    // citizen -> NHSWebsite 'searches for health information'
+    analyticsUser -> site-search-ui 'Updates search solution'
+
+    //Implementation
+    site-search-ui -> api 'fetches via HTTPS'
+    api -> azureSearch 'fetches via HTTPS'
+    api -> azureServiceBus 'Puts messages'
+    azureServiceBus -> function 'Processes Messages'
+    function -> azureAnalyticsDB 'Stores Analytics'
+    azureDataFactory -> azureContentDB 'Extracts Content from Content DB'
+    azureContentDB -> azureSearch 'Indexes Data'
+    NHSWebsite.azureCMSContentDB -> azureDataFactory 'Source of content'
+    api -> azureAnalyticsDB 'Retrieves model responses'
   }
-
-  // Customer uses the UI
-  citizen -> site-search-ui 'User searching for information on the site'
- // citizen -> NHSWebsite 'searches for health information'
-  analyticsUser -> site-search-ui 'Updates search solution'
-
-  //Implementation
-  site-search-ui -> api 'fetches via HTTPS'
-  api -> azureSearch 'fetches via HTTPS'
-  api -> azureServiceBus 'Puts messages'
-  azureServiceBus -> function 'Processes Messages'
-  function -> azureAnalyticsDB 'Stores Analytics'
-  azureDataFactory -> azureContentDB 'Extracts Content from Content DB'
-  azureContentDB -> azureSearch 'Indexes Data'
-  NHSWebsite.azureCMSContentDB -> azureDataFactory 'Source of content'
-  api -> azureAnalyticsDB 'Retrieves model responses'
-}
 }
 
 deployment {
@@ -121,11 +114,8 @@ views {
   view site-search of site-search {
     title 'System Context - Site Search'
     description 'System Context'
-  
+
     include *
- 
-
-
     style citizen {
       color muted
     }
