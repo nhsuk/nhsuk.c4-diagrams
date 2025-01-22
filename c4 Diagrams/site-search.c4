@@ -96,6 +96,7 @@ model {
   NHSWebsite.azureCMSContentDB -> azureDataFactory 'Source of content'
   api -> azureAnalyticsDB 'Retrieves model responses'
 }
+}
 
 deployment {
 
@@ -116,22 +117,10 @@ deployment {
 }
 
 views {
-  view  of site-search-ui {
-    title 'Implementation of Site Search'
-    description 'Technical overview'
-  
-    include *
- 
 
-
-    style citizen {
-      color muted
-    }
-    autoLayout LeftRight
-  }
   view site-search of site-search {
-    title 'Implementation of Site Search'
-    description 'Technical overview'
+    title 'System Context - Site Search'
+    description 'System Context'
   
     include *
  

@@ -44,7 +44,7 @@ deployment {
 }
 
 views {
-  view profiles of profile-viewer-ui {
+  view profiles of ProfileViewer {
     title 'Implementation of Profile Viewer'
     description 'Technical overview'
   

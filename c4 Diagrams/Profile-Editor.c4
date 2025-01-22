@@ -97,7 +97,7 @@ deployment {
 }
 
 views {
-  view edits of profile-editor-ui {
+  view edits of ProfileEditing {
     title 'Implementation of Profile Editor'
     description 'Technical overview'
   

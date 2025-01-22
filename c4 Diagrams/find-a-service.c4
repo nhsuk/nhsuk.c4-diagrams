@@ -7,7 +7,7 @@ model {
 
 
   extend NHSWebsite  {
-     FidndAService = system 'Find a Service' {
+     FindAService = system 'Find a Service' {
   description 'The ability for citizens to find NHS Organisations'
 
     component find-a-service-ui 'Frontend for Find a Service' {
@@ -27,7 +27,9 @@ model {
   //Implementation
 find-a-service-ui -> NHSWebsite.azureAISearch 'Searches for NHS Services'
 
-}
+
+  }
+  }
 
 // Deployment model
 deployment {
@@ -46,7 +48,7 @@ deployment {
 
 views {
 
-  view FidndAService of find-a-service-ui {
+  view FindAService of FiddAService {
     title 'Implementation of Find a Service'
     description 'System Context'
     include *,

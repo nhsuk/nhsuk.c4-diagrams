@@ -14,6 +14,9 @@ model {
   }
 
   extend NHSWebsite  {
+    
+     NHSUKCMS = system 'NHS.Uk CMS' {
+  description 'The ability for citizens to view and leave comments against NHS Organisations'
     component nhswebsite-ui 'Frontend for all Content redering' {
       description 'Wagtail is a Python based CMS '
       style {
@@ -21,7 +24,7 @@ model {
       }
       link https://wagtail.org/
     }
-     restapi nhswebsite-content-api 'API for all NHS Content' {
+     component nhswebsite-content-api 'API for all NHS Content' {
       description 'Wagtail is a Python based CMS '
     
       link https://wagtail.org/
@@ -40,6 +43,7 @@ model {
         icon azure:azure-database-postgre-sql-server
       }
     }
+  }
   }
 
   // Customer uses the UI
@@ -77,22 +81,12 @@ deployment {
 
 views {
 
-  view of nhswebsite-ui {
-    title 'Implementation of NHS Content for citizens'
-    description 'Technical overview of CMS'
-    include *,
-    nhswebsite-ui
 
-    style citizen {
-      color muted
-    }
-    autoLayout LeftRight
-  }
-    view of nhswebsite-admin-ui {
-    title 'Implementation of NHS Content for editors'
-    description 'Technical overview of CMS'
+    view of NHSUKCMS {
+    title 'System Context - NHS CMS'
+    description 'System Context of CMS'
     include *,
-    nhswebsite-admin-ui
+  
 
     style citizen {
       color muted

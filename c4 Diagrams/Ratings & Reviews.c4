@@ -31,7 +31,7 @@ model {
      system Dynamics 'MS Dynamics for comment Moderation' {
       description 'Use of Dynamics to store all messages'
         style {
-        icon azure:
+        
       }
     }
      component CommentsAPI 'API for Comments' {
