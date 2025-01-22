@@ -49,7 +49,7 @@ deployment {
 views {
 
   view FindAService of FiddAService {
-    title 'Implementation of Find a Service'
+    title 'System Context - Find a Service'
     description 'System Context'
     include *,
     find-a-service-ui,

@@ -93,7 +93,7 @@ views {
 
 
   view RatingsReviews of RatingsReviews {
-    title 'Ratings and Reviews - System Context'
+    title 'System Context - Ratings & Reviews'
     description 'System Context'
   
     include *

@@ -82,9 +82,9 @@ deployment {
 views {
 
 
-    view of NHSUKCMS {
+    view NHSUKCMS of NHSUKCMS {
     title 'System Context - NHS CMS'
-    description 'System Context of CMS'
+    description 'System Context'
     include *,
   
 
