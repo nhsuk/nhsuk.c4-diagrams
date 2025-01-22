@@ -48,7 +48,7 @@ deployment {
 
 views {
 
-  view FindAService of FiddAService {
+  view FindAService of FindAService {
     title 'System Context - Find a Service'
     description 'System Context'
     include *,
