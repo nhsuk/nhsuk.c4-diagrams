@@ -17,6 +17,14 @@ model {
       shape person
     }
   }
+       DataScientist = actor 'Data Science Team' {
+
+    description 'NHSE data scientists'
+
+    style {
+      shape person
+    }
+  }
 
   extend NHSWebsite  {
  
@@ -62,7 +70,7 @@ model {
   CommentsAPI -> autoMod 'Perform Moderation'
   CommentsAPI -> CommentsDB 'Store / Retrieve comments'
   CommentsAPI -> Dynamics 'Submit comments to human moderation system'
-
+  DataScientist -> autoMod 'Develop the models'
   reviews-ui -> NHSWebsite.azureAISearch 'Retrieve Organisation profiles'
 
   //Implementation
