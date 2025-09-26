@@ -73,6 +73,7 @@ model {
     NHSWebsite.ProfileEditor-API -> editor-authentication 'Authenticates a user'
     NHSWebsite.ProfileEditor-API -> azureServiceBusUEC 'Post message to UEC'
     azureServiceBusUEC -> UEC 'Send message to UEC'
+    azureServiceBusUEC -> apim.dosWriteProxy 'Notify Search Index of changes'
     NHSWebsite.azureProfilesDB -> NHSWebsite.azureAISearch 'Profiles information loaded into Azure Search Index'
     azureDataFactoryProfiles -> NHSWebsite.azureProfilesDB 'Extracts Profiles from NHSUKChoice and PIMS'
     NHSWebsite.profile-editor-ui -> NHSWebsite.ProfileEditor-API 'Accepts updates to a profile'

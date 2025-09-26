@@ -1,0 +1,3 @@
+[submodule "ftrs-directory-of-services"]
+	path = ftrs-directory-of-services
+	url = https://github.com/NHSDigital/ftrs-directory-of-services.git
