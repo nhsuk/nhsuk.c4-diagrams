@@ -1,8 +1,25 @@
 {
   "$schema": "https://likec4.dev/schemas/config.json",
   "name": "NHS",
-  "title": "NHS.UK C4 Diagrams -2",
+  "title": "NHS.UK C4 Diagrams",
   "projects": [
-  
+    {
+      "path": "./c4 Diagrams/Common-Components.c4"
+    },
+    {
+      "path": "./c4 Diagrams/find-a-service.c4"
+    },
+    {
+      "path": "./c4 Diagrams/Profile-Viewer.c4"
+    },
+    {
+      "path": "./c4 Diagrams/Profile-Editor.c4"
+    },
+    {
+      "path": "./c4 Diagrams/Ratings & Reviews.c4"
+    },
+    {
+      "path": "./c4 Diagrams/deployment.c4"
+    }
   ]
 }
