@@ -33,7 +33,7 @@ model {
 
 views {
   view index {
-    title 'Index View for NHS Website'
+     title 'NHS.UK / Index View for NHS Website'
     description 'A model showing the NHS Website'
     include *
     autoLayout LeftRight
@@ -43,7 +43,7 @@ views {
   }
 
   view NHSWebsite of NHSWebsite {
-    title 'Implementation of NHS Website'
+    title 'NHS.UK / Implementation of NHS Website'
     description 'Technical overview of all components'
     include *
     style citizen {

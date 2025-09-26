@@ -36,7 +36,7 @@ deployment {
 
 views {
   deployment view prod-deployment {
-    title 'Production Deployment'
+    title 'NHS.UK / Production Deployment'
     description 'Deployment of NHS.UK'
 
     include

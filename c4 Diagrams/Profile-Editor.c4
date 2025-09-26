@@ -101,7 +101,7 @@ deployment {
 
 views {
   view edits of ProfileEditing {
-    title 'System Context - Profile Editor'
+     title 'NHS.UK / System Context - Profile Editor'
     description 'System Context'
 
     include *,
